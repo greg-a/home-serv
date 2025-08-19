@@ -1,0 +1,11 @@
+services:
+  fileserver:
+    image: home-serv
+    container_name: home-serv
+    environment:
+      - DATA_DIRECTORY=/data
+    ports:
+      - "8000:8000"
+    volumes:
+      - /Users/gregallebach/Documents/develop/home-serv/data:/data
+    restart: unless-stopped
