@@ -21,13 +21,13 @@ async function handleSubmitFiles() {
       });
       console.log({ response });
       if (response.status === 200) {
-        alert("Success");
+        newToast("Success");
         handleClearInput();
       } else {
-        alert("Failed");
+        newToast("Failed", "error");
       }
     } catch (e) {
-      alert(e);
+      newToast(e, "error");
     }
   }
 }
