@@ -19,9 +19,12 @@ async function handleSubmitFiles() {
         method: "POST",
         body: data,
       });
-      console.log({ response });
       if (response.status === 200) {
-        newToast("Success");
+        const { success, failed } = await response.json();
+        success.forEach((filename) => newToast(`Success - ${filename}`));
+        failed.forEach(([filename, reason]) =>
+          newToast(`Failed - ${filename} - ${reason}`, "error")
+        );
         handleClearInput();
       } else {
         newToast("Failed", "error");
@@ -33,8 +36,8 @@ async function handleSubmitFiles() {
 }
 
 const handleClearInput = () => {
-  fileInput.value = ""
-}
+  fileInput.value = "";
+};
 
 submitBtn.addEventListener("click", handleSubmitFiles);
-clearBtn.addEventListener("click", handleClearInput)
+clearBtn.addEventListener("click", handleClearInput);
