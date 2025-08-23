@@ -16,3 +16,19 @@
     opacity: 0;
   }
 }
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radial-progress {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-loading .btn-text { opacity: 0; }
+.btn-loading .radial-progress { opacity: 1; }

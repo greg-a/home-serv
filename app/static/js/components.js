@@ -20,3 +20,27 @@ const newToast = (message, type) => {
   setTimeout(() => container.classList.add("fade-out"), 5000);
   setTimeout(() => container.remove(), 6000);
 };
+
+const newBreadCrumb = (text) => {
+  const breadCrumb = document.createElement("li");
+  const anchor = document.createElement("a");
+  const img = document.createElement("img");
+  img.classList.add("size-4", "inline-block", "text-success");
+  img.src = "./images/folder-icon.svg";
+  anchor.append(img, text);
+  breadCrumb.append(anchor);
+  return breadCrumb;
+};
+
+const newFolderButton = (text) => {
+  const button = document.createElement("button");
+  button.classList.add("btn", "btn-outline", "btn-sm", "me-2");
+  button.value = text;
+  const folderImg = document.createElement("img");
+  folderImg.classList.add("size-6", "me-2", "inline-block", "text-success");
+  folderImg.src = "./images/folder-icon.svg";
+  const textEl = document.createElement("span");
+  textEl.textContent = text;
+  button.append(folderImg, text);
+  return button;
+};

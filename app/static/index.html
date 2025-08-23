@@ -16,28 +16,61 @@
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
-    <div class="h-dvh flex flex-col justify-between p-3">
-      <div>
-        <h1>File Upload</h1>
-        <div class="join">
-          <input class="file-input" id="formFile" type="file" multiple />
-          <button
-            id="submitBtn"
-            type="button"
-            class="btn join-item btn-primary"
-          >
-            Submit
-          </button>
-          <button id="clearBtn" type="button" class="btn join-item">
-            Clear
-          </button>
+  <body class="h-dvh grid grid-cols-6 p-3">
+    <div class="col-span-1"></div>
+    <div class="col-span-4 card bg-base-100 card-lg shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title">Folders</h2>
+        <div class="breadcrumbs text-sm">
+          <ul id="uploadFolderList">
+            <li>
+              <a>
+                <img
+                  class="size-4 inline-block text-success"
+                  src="./images/folder-icon.svg"
+                />
+                Home
+              </a>
+            </li>
+          </ul>
+        </div>
+        <ul class="mt-2 flex flex-col gap-2 text-s">
+          <li id="folderList">
+          </li>
+        </ul>
+        <div class="mt-4 flex flex-col justify-between">
+          <div>
+            <h1>File Upload</h1>
+            <div class="join">
+              <input class="file-input" id="formFile" type="file" multiple />
+              <button
+                id="submitBtn"
+                type="button"
+                class="btn join-item btn-primary"
+              >
+                <span class="btn-text">Submit</span>
+                <div
+                  id="submitBtnProgress"
+                  class="radial-progress"
+                  style="--value: 0; --size: 2.5rem; --thickness: 0.15rem"
+                  aria-valuenow="0"
+                  role="progressbar"
+                >
+                  0%
+                </div>
+              </button>
+              <button id="clearBtn" type="button" class="btn join-item">
+                Clear
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div id="toaster" class="flex flex-col items-end justify-end gap-1"></div>
     </div>
+    <div id="toaster" class="col-span-1 flex flex-col items-end justify-end gap-1"></div>
   </body>
   <script src="js/code.js"></script>
   <script src="js/components.js"></script>
+  <script src="js/api.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </html>
