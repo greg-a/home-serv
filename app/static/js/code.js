@@ -6,10 +6,10 @@ const uploadFolderList = document.getElementById("uploadFolderList");
 const folderList = document.getElementById("folderList");
 const folderButtonList = document.querySelectorAll(".folderButton");
 
-let isLoading = false;
+let isUploadingFiles = false;
 
 const setIsLoading = (loading) => {
-  isLoading = loading;
+  isUploadingFiles = loading;
   submitBtnProgress.style.setProperty("--value", 0);
   submitBtnProgress.ariaValueNow = 0;
   submitBtnProgress.innerText = 0 + "%";
@@ -21,8 +21,8 @@ const setIsLoading = (loading) => {
 };
 
 const handleSubmitFiles = () => {
-  if (fileInput.files.length > 0 && !isLoading) {
-    isLoading = true;
+  if (fileInput.files.length > 0 && !isUploadingFiles) {
+    isUploadingFiles = true;
     const data = new FormData();
     const selectedFiles = fileInput.files;
 
@@ -94,7 +94,7 @@ const getUploadPath = () => {
 };
 
 const handleFolderClick = async (e) => {
-  const { value } = e.target;
+  const { value } = e.currentTarget;
   uploadFolderList.append(newBreadCrumb(value));
   const uploadPath = getUploadPath();
   await getFolderBtnList(uploadPath);
