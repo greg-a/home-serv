@@ -93,6 +93,19 @@ const getUploadPath = () => {
   return path.replace("Home/", "");
 };
 
+const handleUploadFolderClick = async (e) => {
+  const selectedFolder = e.currentTarget?.value ?? e.value;
+  let currentFolder = uploadFolderList.lastElementChild.firstElementChild.value;
+  if (selectedFolder !== currentFolder) {
+    while (currentFolder !== selectedFolder && currentFolder !== "Home") {
+      uploadFolderList.lastChild.remove();
+      currentFolder = uploadFolderList.lastElementChild.firstElementChild.value;
+    }
+    const uploadPath = getUploadPath();
+    await getFolderBtnList(uploadPath);
+  }
+};
+
 const handleFolderClick = async (e) => {
   const { value } = e.currentTarget;
   uploadFolderList.append(newBreadCrumb(value));

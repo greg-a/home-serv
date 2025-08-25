@@ -23,12 +23,15 @@ const newToast = (message, type) => {
 
 const newBreadCrumb = (text) => {
   const breadCrumb = document.createElement("li");
-  const anchor = document.createElement("a");
+  const button = document.createElement("button");
+  button.classList.add("btn", "btn-link");
+  button.value = getUploadPath() + text;
+  button.onclick = handleUploadFolderClick;
   const img = document.createElement("img");
   img.classList.add("size-4", "inline-block", "text-success");
   img.src = "./images/folder-icon.svg";
-  anchor.append(img, text);
-  breadCrumb.append(anchor);
+  button.append(img, text);
+  breadCrumb.append(button);
   return breadCrumb;
 };
 
