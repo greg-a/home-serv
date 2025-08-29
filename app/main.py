@@ -1,4 +1,5 @@
 import os
+import re
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -40,6 +41,16 @@ async def get_folders(location: str = ""):
     return [
         f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))
     ]
+
+@app.post("/folder")
+async def create_folder(name: str, location: str = ""):
+    if re.search(r"^[a-zA-Z0-9_-]+$", name):
+        directory = os.path.join(file_dir, location, name)
+        if os.path.isdir(directory):
+            raise HTTPException(400, "Folder already exists")
+        os.makedirs(directory)
+    else:
+        raise HTTPException(400, "Folder name contains unacceptable characters")
 
 
 @app.get("/file")

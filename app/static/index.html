@@ -20,24 +20,61 @@
     <div class="col-span-1"></div>
     <div class="col-span-4 card bg-base-100 card-lg shadow-sm">
       <div class="card-body">
-        <h2 class="card-title">Folders</h2>
-        <div class="breadcrumbs text-sm">
+        <h2 class="card-title p-1">Folders</h2>
+        <div class="breadcrumbs text-sm p-1">
           <ul id="uploadFolderList">
             <li>
-              <button class="btn btn-link" value="Home" onclick="handleUploadFolderClick(this)">
+              <button
+                class="btn btn-link"
+                value="root"
+                onclick="handleUploadFolderClick(this)"
+              >
                 <img
                   class="size-4 inline-block text-success"
                   src="./images/folder-icon.svg"
                 />
-                Home
+                root
               </button>
             </li>
           </ul>
+          <button id="newFolderOpenBtn" class="btn btn-sm my-4">
+            <img
+              class="size-4 inline-block text-success"
+              src="./images/plus-icon.svg"
+            />
+            New Folder
+          </button>
+          <dialog id="new_folder_modal" class="modal">
+            <div class="modal-box">
+              <h3 class="text-lg font-bold">Create Folder</h3>
+              <p class="py-4">
+                Create new folder in
+                <span id="newFolderPath" class="underline"></span>
+              </p>
+              <input
+                id="newFolderName"
+                type="text"
+                placeholder="Folder name"
+                class="input validator"
+                pattern="[a-zA-Z0-9_-]+"
+              />
+              <div class="validator-hint">Enter valid email address</div>
+              <div class="modal-action">
+                <div method="dialog" class="flex gap-4">
+                  <button id="closeNewFolderDialog" class="btn">Close</button>
+                  <button id="newFolderBtn" class="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </dialog>
+          <div class="flex gap-2">
+            <ul class="flex flex-col gap-2 text-s">
+              <li id="folderList"></li>
+            </ul>
+          </div>
         </div>
-        <ul class="mt-2 flex flex-col gap-2 text-s">
-          <li id="folderList">
-          </li>
-        </ul>
         <div class="mt-4 flex flex-col justify-between">
           <div>
             <h1>File Upload</h1>
@@ -67,7 +104,10 @@
         </div>
       </div>
     </div>
-    <div id="toaster" class="col-span-1 flex flex-col items-end justify-end gap-1"></div>
+    <div
+      id="toaster"
+      class="col-span-1 flex flex-col items-end justify-end gap-1"
+    ></div>
   </body>
   <script src="js/code.js"></script>
   <script src="js/components.js"></script>

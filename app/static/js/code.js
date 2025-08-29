@@ -5,6 +5,8 @@ const submitBtnProgress = document.getElementById("submitBtnProgress");
 const uploadFolderList = document.getElementById("uploadFolderList");
 const folderList = document.getElementById("folderList");
 const folderButtonList = document.querySelectorAll(".folderButton");
+const newFolderBtn = document.getElementById("newFolderBtn");
+const newFolderInput = document.getElementById("newFolderName");
 
 let isUploadingFiles = false;
 
@@ -90,14 +92,14 @@ const getUploadPath = () => {
   for (const child of uploadFolderList.children) {
     path += child.textContent.trim() + "/";
   }
-  return path.replace("Home/", "");
+  return path.replace("root/", "");
 };
 
 const handleUploadFolderClick = async (e) => {
   const selectedFolder = e.currentTarget?.value ?? e.value;
   let currentFolder = uploadFolderList.lastElementChild.firstElementChild.value;
   if (selectedFolder !== currentFolder) {
-    while (currentFolder !== selectedFolder && currentFolder !== "Home") {
+    while (currentFolder !== selectedFolder && currentFolder !== "root") {
       uploadFolderList.lastChild.remove();
       currentFolder = uploadFolderList.lastElementChild.firstElementChild.value;
     }
@@ -116,15 +118,56 @@ const handleFolderClick = async (e) => {
 const getFolderBtnList = async (path) => {
   folderList.innerHTML = "";
   const folders = await getFolders(path);
-  folders.forEach((folder) => {
-    const folderBtn = newFolderButton(folder);
-    folderBtn.onclick = handleFolderClick;
-    folderList.append(folderBtn);
-  });
+  folders.forEach(addFolderBtn);
+};
+
+const addFolderBtn = (folderName) => {
+  const folderBtn = newFolderButton(folderName);
+  folderBtn.onclick = handleFolderClick;
+  folderList.append(folderBtn);
+};
+
+const handleCreateFolder = async () => {
+  const newFolderInputTxt = newFolderInput.value;
+  const result = await createFolder(newFolderInputTxt, getUploadPath());
+  if (result) {
+    new_folder_modal.close();
+    newToast("Success");
+    addFolderBtn(newFolderInputTxt);
+    newFolderInput.value = "";
+  } else {
+    newFolderInput.select();
+  }
+};
+
+const handleNewFolderCancel = () => {
+  newFolderInput.value = "";
+  new_folder_modal.close();
 };
 
 submitBtn.addEventListener("click", handleSubmitFiles);
 clearBtn.addEventListener("click", handleClearInput);
+newFolderBtn.addEventListener("click", handleCreateFolder);
+newFolderInput.onkeydown = (e) => {
+  if (e.code === "Enter") {
+    handleCreateFolder();
+  }
+};
+newFolderInput.addEventListener("input", (e) => {
+  const regex = /^[a-zA-Z0-9_-]+$/;
+  console.log(regex.test(e.target.value));
+});
+document
+  .getElementById("closeNewFolderDialog")
+  .addEventListener("click", handleNewFolderCancel);
+document
+  .getElementById("newFolderOpenBtn")
+  .addEventListener("click", function () {
+    const modalBodyTxt = document.getElementById("newFolderPath");
+    modalBodyTxt.textContent = "/root/" + getUploadPath();
+    new_folder_modal.showModal();
+    newFolderInput.focus();
+  });
 document.addEventListener("DOMContentLoaded", async function () {
   await getFolderBtnList();
 });

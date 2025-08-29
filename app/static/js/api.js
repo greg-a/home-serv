@@ -14,3 +14,18 @@ async function getFolders(path) {
     newToast(e, "error");
   }
 }
+
+async function createFolder(name, path) {
+  try {
+    const params = new URLSearchParams({ name, location: path ?? "" });
+    response = await fetch(`/folder?${params}`, { method: "POST" });
+    const data = await response.json();
+    if (response.status === 200) {
+      return true;
+    } else {
+      newToast(data.detail ?? response.statusText, "error");
+    }
+  } catch (e) {
+    newToast(e, "error");
+  }
+}
