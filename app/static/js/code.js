@@ -122,8 +122,7 @@ const getFolderBtnList = async (path) => {
 };
 
 const addFolderBtn = (folderName) => {
-  const folderBtn = newFolderButton(folderName);
-  folderBtn.onclick = handleFolderClick;
+  const folderBtn = newFolderButton(folderName, handleFolderClick);
   folderList.append(folderBtn);
 };
 

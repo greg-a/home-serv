@@ -35,15 +35,18 @@ const newBreadCrumb = (text) => {
   return breadCrumb;
 };
 
-const newFolderButton = (text) => {
+const newFolderButton = (text, onclick) => {
+  const li = document.createElement("li");
   const button = document.createElement("button");
-  button.classList.add("btn", "btn-outline", "btn-sm", "me-2");
+  button.classList.add("btn", "btn-outline", "btn-sm", "me-2", "mb-2");
   button.value = text;
+  button.onclick = onclick;
   const folderImg = document.createElement("img");
   folderImg.classList.add("size-6", "me-2", "inline-block", "text-success");
   folderImg.src = "./images/folder-icon.svg";
   const textEl = document.createElement("span");
   textEl.textContent = text;
   button.append(folderImg, text);
-  return button;
+  li.append(button);
+  return li;
 };
