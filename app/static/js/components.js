@@ -24,7 +24,7 @@ const newToast = (message, type) => {
 const newBreadCrumb = (text) => {
   const breadCrumb = document.createElement("li");
   const button = document.createElement("button");
-  button.classList.add("btn", "btn-link", "btn-lg");
+  button.classList.add("btn", "btn-link", "btn-lg", "p-0");
   button.value = getUploadPath() + text;
   button.onclick = handleUploadFolderClick;
   const img = document.createElement("img");
@@ -36,9 +36,10 @@ const newBreadCrumb = (text) => {
 };
 
 const newFolderButton = (text, onclick) => {
-  const li = document.createElement("li");
+  const container = document.createElement("div");
   const button = document.createElement("button");
-  button.classList.add("btn", "btn-outline");
+  button.classList.add("btn", "btn-outline", "w-full", "max-w-50");
+  button.setAttribute("title", text);
   button.value = text;
   button.onclick = onclick;
   const folderImg = document.createElement("img");
@@ -46,7 +47,8 @@ const newFolderButton = (text, onclick) => {
   folderImg.src = "./images/folder-icon.svg";
   const textEl = document.createElement("span");
   textEl.textContent = text;
-  button.append(folderImg, text);
-  li.append(button);
-  return li;
+  textEl.classList.add("truncate");
+  button.append(folderImg, textEl);
+  container.append(button);
+  return container;
 };
