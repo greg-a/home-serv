@@ -18,31 +18,64 @@
   </head>
   <body class="h-dvh flex flex-col p-3">
     <div class="card bg-base-100 card-lg shadow-sm flex items-center">
-      <div class="card-body md:w-lg px-1">
-        <h2 class="card-title p-1">Folders</h2>
-        <div class="breadcrumbs text-sm p-1">
-          <ul id="uploadFolderList">
-            <li>
-              <button
-                class="btn btn-link"
-                value="root"
-                onclick="handleUploadFolderClick(this)"
-              >
-                <img
-                  class="size-4 inline-block text-success"
-                  src="./images/folder-icon.svg"
-                />
-                root
-              </button>
-            </li>
-          </ul>
-          <button id="newFolderOpenBtn" class="btn btn-sm my-4">
+      <div class="card-body w-sm sm:w-md md:w-lg px-1">
+        <h2 class="card-title">File Upload</h2>
+        <div class="join">
+          <input
+            class="text-area file-input rounded-l-lg"
+            id="formFile"
+            type="file"
+            multiple
+          />
+          <button
+            id="submitBtn"
+            type="button"
+            class="btn join-item btn-primary"
+          >
+            <span class="btn-text">Submit</span>
+            <div
+              id="submitBtnProgress"
+              class="radial-progress"
+              style="--value: 0; --size: 2.5rem; --thickness: 0.15rem"
+              aria-valuenow="0"
+              role="progressbar"
+            >
+              0%
+            </div>
+          </button>
+          <button id="clearBtn" type="button" class="btn join-item">
+            Clear
+          </button>
+        </div>
+        <div class="flex flex-col justify-between">
+          <h1 class="ms-2">Upload Location</h1>
+          <div class="breadcrumbs text-sm p-1">
+            <ul id="uploadFolderList">
+              <li>
+                <button
+                  class="btn btn-link btn-lg"
+                  value="root"
+                  onclick="handleUploadFolderClick(this)"
+                >
+                  <img
+                    class="size-5 inline-block text-success"
+                    src="./images/folder-icon.svg"
+                  />
+                  root
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="flex flex-col gap-5">
+          <button id="newFolderOpenBtn" class="btn w-fit">
             <img
-              class="size-4 inline-block text-success"
-              src="./images/plus-icon.svg"
+            class="size-4 inline-block text-success"
+            src="./images/plus-icon.svg"
             />
             New Folder
           </button>
+          <h1 class="ms-2">Select Folder</h1>
           <dialog id="new_folder_modal" class="modal">
             <div class="modal-box">
               <h3 class="text-lg font-bold">Create Folder</h3>
@@ -56,7 +89,9 @@
                 placeholder="Folder name"
                 class="input"
               />
-              <div id="folderNameHint" class="validator-hint text-error">Can only contain: [a-z, 0-9, _, -]</div>
+              <div id="folderNameHint" class="validator-hint text-error">
+                Can only contain: [a-z, 0-9, _, -]
+              </div>
               <div class="modal-action m-0">
                 <div method="dialog" class="flex gap-4">
                   <button id="closeNewFolderDialog" class="btn">Close</button>
@@ -68,37 +103,10 @@
             </div>
           </dialog>
           <div class="flex gap-2">
-            <ul id="folderList" class="flex flex-col md:flex-row gap-2 text-s"></ul>
-          </div>
-        </div>
-        <div class="mt-4 flex flex-col justify-between">
-          <h1 class="ms-2">File Upload</h1>
-          <div class="join">
-            <input
-              class="text-area file-input rounded-l-lg"
-              id="formFile"
-              type="file"
-              multiple
-            />
-            <button
-              id="submitBtn"
-              type="button"
-              class="btn join-item btn-primary"
-            >
-              <span class="btn-text">Submit</span>
-              <div
-                id="submitBtnProgress"
-                class="radial-progress"
-                style="--value: 0; --size: 2.5rem; --thickness: 0.15rem"
-                aria-valuenow="0"
-                role="progressbar"
-              >
-                0%
-              </div>
-            </button>
-            <button id="clearBtn" type="button" class="btn join-item">
-              Clear
-            </button>
+            <ul
+              id="folderList"
+              class="flex flex-col flex-wrap md:flex-row gap-2 text-s"
+            ></ul>
           </div>
         </div>
       </div>
