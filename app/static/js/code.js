@@ -9,6 +9,7 @@ const newFolderBtn = document.getElementById("newFolderBtn");
 const newFolderInput = document.getElementById("newFolderName");
 
 let isUploadingFiles = false;
+const folderNameRegex = /^[a-zA-Z0-9_-]+$/;
 
 const setIsLoading = (loading) => {
   isUploadingFiles = loading;
@@ -128,19 +129,22 @@ const addFolderBtn = (folderName) => {
 
 const handleCreateFolder = async () => {
   const newFolderInputTxt = newFolderInput.value;
-  const result = await createFolder(newFolderInputTxt, getUploadPath());
-  if (result) {
-    new_folder_modal.close();
-    newToast("Success");
-    addFolderBtn(newFolderInputTxt);
-    newFolderInput.value = "";
-  } else {
-    newFolderInput.select();
+  if (newFolderInputTxt.length > 0 && folderNameRegex.test(newFolderInputTxt)) {
+    const result = await createFolder(newFolderInputTxt, getUploadPath());
+    if (result) {
+      new_folder_modal.close();
+      newToast("Success");
+      addFolderBtn(newFolderInputTxt);
+      newFolderInput.value = "";
+    } else {
+      newFolderInput.select();
+    }
   }
 };
 
 const handleNewFolderCancel = () => {
   newFolderInput.value = "";
+  folderNameHint.classList.remove("visible");
   new_folder_modal.close();
 };
 
@@ -153,8 +157,12 @@ newFolderInput.onkeydown = (e) => {
   }
 };
 newFolderInput.addEventListener("input", (e) => {
-  const regex = /^[a-zA-Z0-9_-]+$/;
-  console.log(regex.test(e.target.value));
+  const folderNameHint = document.getElementById("folderNameHint");
+  if (folderNameRegex.test(e.target.value)) {
+    folderNameHint.classList.remove("visible");
+  } else {
+    folderNameHint.classList.add("visible");
+  }
 });
 document
   .getElementById("closeNewFolderDialog")

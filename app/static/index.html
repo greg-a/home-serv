@@ -54,11 +54,10 @@
                 id="newFolderName"
                 type="text"
                 placeholder="Folder name"
-                class="input validator"
-                pattern="[a-zA-Z0-9_-]+"
+                class="input"
               />
-              <div class="validator-hint">Enter valid email address</div>
-              <div class="modal-action">
+              <div id="folderNameHint" class="validator-hint text-error">Can only contain: [a-z, 0-9, _, -]</div>
+              <div class="modal-action m-0">
                 <div method="dialog" class="flex gap-4">
                   <button id="closeNewFolderDialog" class="btn">Close</button>
                   <button id="newFolderBtn" class="btn btn-primary">
