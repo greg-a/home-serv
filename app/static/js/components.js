@@ -35,13 +35,18 @@ const newBreadCrumb = (text) => {
   return breadCrumb;
 };
 
-const newFolderButton = (text, onclick) => {
-  const container = document.createElement("div");
+const newFolderButton = (text, onclick, newFolder = false) => {
   const button = document.createElement("button");
   button.classList.add("btn", "btn-outline", "w-full", "max-w-50");
   button.setAttribute("title", text);
   button.value = text;
   button.onclick = onclick;
+  if (newFolder) {
+    const indicator = document.createElement("span");
+    indicator.classList.add("indicator-item", "status", "status-success");
+    button.classList.add("indicator");
+    button.append(indicator);
+  }
   const folderImg = document.createElement("img");
   folderImg.classList.add("size-6", "me-2", "inline-block", "text-success");
   folderImg.src = "./images/folder-icon.svg";
@@ -49,6 +54,5 @@ const newFolderButton = (text, onclick) => {
   textEl.textContent = text;
   textEl.classList.add("truncate");
   button.append(folderImg, textEl);
-  container.append(button);
-  return container;
+  return button;
 };

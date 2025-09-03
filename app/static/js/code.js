@@ -9,6 +9,7 @@ const newFolderBtn = document.getElementById("newFolderBtn");
 const newFolderInput = document.getElementById("newFolderName");
 
 let folderList = [];
+let newFolderList = [];
 
 let isUploadingFiles = false;
 const folderNameRegex = /^[a-zA-Z0-9_-]+$/;
@@ -119,19 +120,25 @@ const handleFolderClick = async (e) => {
 };
 
 const renderFolderBtnList = () => {
+  const allFolders = [...folderList, ...newFolderList];
   folderListEl.innerHTML = "";
-  folderList.sort();
-  folderList.forEach(addFolderBtn);
+  allFolders.sort();
+  allFolders.forEach(addFolderBtn);
 };
 
 const getFolderBtnList = async (path) => {
   folderListEl.innerHTML = "";
+  newFolderList = [];
   folderList = (await getFolders(path)) ?? [];
   renderFolderBtnList();
 };
 
 const addFolderBtn = (folderName) => {
-  const folderBtn = newFolderButton(folderName, handleFolderClick);
+  const folderBtn = newFolderButton(
+    folderName,
+    handleFolderClick,
+    newFolderList.includes(folderName)
+  );
   folderListEl.append(folderBtn);
 };
 
@@ -142,7 +149,7 @@ const handleCreateFolder = async () => {
     if (result) {
       new_folder_modal.close();
       newToast("Success");
-      folderList.push(newFolderInputTxt);
+      newFolderList.push(newFolderInputTxt);
       renderFolderBtnList();
       newFolderInput.value = "";
     } else {
