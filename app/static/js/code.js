@@ -3,10 +3,12 @@ const submitBtn = document.getElementById("submitBtn");
 const clearBtn = document.getElementById("clearBtn");
 const submitBtnProgress = document.getElementById("submitBtnProgress");
 const uploadFolderList = document.getElementById("uploadFolderList");
-const folderList = document.getElementById("folderList");
+const folderListEl = document.getElementById("folderList");
 const folderButtonList = document.querySelectorAll(".folderButton");
 const newFolderBtn = document.getElementById("newFolderBtn");
 const newFolderInput = document.getElementById("newFolderName");
+
+let folderList = [];
 
 let isUploadingFiles = false;
 const folderNameRegex = /^[a-zA-Z0-9_-]+$/;
@@ -85,7 +87,7 @@ const handleClearInput = () => {
 };
 
 const clearFolderList = () => {
-  folderList.innerHTML = "";
+  folderListEl.innerHTML = "";
 };
 
 const getUploadPath = () => {
@@ -116,15 +118,21 @@ const handleFolderClick = async (e) => {
   await getFolderBtnList(uploadPath);
 };
 
+const renderFolderBtnList = () => {
+  folderListEl.innerHTML = "";
+  folderList.sort();
+  folderList.forEach(addFolderBtn);
+};
+
 const getFolderBtnList = async (path) => {
-  folderList.innerHTML = "";
-  const folders = await getFolders(path);
-  folders.forEach(addFolderBtn);
+  folderListEl.innerHTML = "";
+  folderList = (await getFolders(path)) ?? [];
+  renderFolderBtnList();
 };
 
 const addFolderBtn = (folderName) => {
   const folderBtn = newFolderButton(folderName, handleFolderClick);
-  folderList.append(folderBtn);
+  folderListEl.append(folderBtn);
 };
 
 const handleCreateFolder = async () => {
@@ -134,7 +142,8 @@ const handleCreateFolder = async () => {
     if (result) {
       new_folder_modal.close();
       newToast("Success");
-      addFolderBtn(newFolderInputTxt);
+      folderList.push(newFolderInputTxt);
+      renderFolderBtnList();
       newFolderInput.value = "";
     } else {
       newFolderInput.select();
