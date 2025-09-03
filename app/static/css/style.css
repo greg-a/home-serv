@@ -17,13 +17,6 @@
   }
 }
 
-.btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .radial-progress {
   position: absolute;
   opacity: 0;
@@ -35,14 +28,4 @@
 }
 .btn-loading .radial-progress {
   opacity: 1;
-}
-
-.g-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
-
-  .btn {
-    justify-content: flex-start;
-  }
 }

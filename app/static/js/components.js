@@ -37,7 +37,7 @@ const newBreadCrumb = (text) => {
 
 const newFolderButton = (text, onclick, newFolder = false) => {
   const button = document.createElement("button");
-  button.classList.add("btn", "btn-outline", "w-full", "max-w-50");
+  button.classList.add("btn", "btn-outline", "w-50", "justify-start");
   button.setAttribute("title", text);
   button.value = text;
   button.onclick = onclick;
