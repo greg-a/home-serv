@@ -77,7 +77,6 @@ const handleSubmitFiles = () => {
       }
     };
 
-    // todo: get network speed and on set loading if upload will take more than a few seconds
     if (totalSize > 1024 * 1024 * 10) setIsLoading(true);
     xhr.send(data);
   }
